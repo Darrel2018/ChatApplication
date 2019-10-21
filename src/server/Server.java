@@ -44,7 +44,7 @@ public class Server {
 						msg = msg.substring(0, msg.indexOf("/e/"));
 						
 						System.out.println("Packet comming in from: " + packet.getAddress().getHostAddress() + 
-								"\n on port: " + packet.getPort() + "\n Message: " + msg);
+								" on port: " + packet.getPort() + " Message: " + msg);
 						
 						Thread.sleep(100);
 					}
