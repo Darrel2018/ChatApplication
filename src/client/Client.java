@@ -9,7 +9,7 @@ public class Client {
 	
 	private static DatagramSocket socket;
 	
-	public static void start(){
+	public void start(){
 		
 		try {
 			socket = new DatagramSocket();
@@ -18,7 +18,16 @@ public class Client {
 		}
 	}
 	
-	public static void send(String msg, String ip, int port){
+	public boolean hasClient(){
+		
+		if(socket != null){
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public void send(String msg, String ip, int port){
 		
 		try {
 			

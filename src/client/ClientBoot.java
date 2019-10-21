@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import server.Server;
+
 public class ClientBoot {
 	
 	private JFrame frame;
@@ -83,34 +85,38 @@ public class ClientBoot {
 		return panel;
 	}
 	
+	// adds mouse listeners to buttons
 	private void addMouseListener(JPanel panel, String button_name){
 		
-		if(button_name.equalsIgnoreCase("server")){
+		panel.addMouseListener(new MouseAdapter() {
 			
-			panel.addMouseListener(new MouseAdapter() {
-				
-				public void mousePressed(MouseEvent e){
-					panel.setBackground(setColor(153, 190, 255));
-				}
-				
-				public void mouseReleased(MouseEvent e){
-					panel.setBackground(setColor(153, 153, 255));
-					System.out.println("Server button pressed");
-				}
-			});
-		} else if(button_name.equalsIgnoreCase("client")){
+			public void mousePressed(MouseEvent e){
+				panel.setBackground(setColor(153, 190, 255));
+			}
 			
-			panel.addMouseListener(new MouseAdapter() {
-				
-				public void mousePressed(MouseEvent e){
-					panel.setBackground(setColor(153, 190, 255));
-				}
-				
-				public void mouseReleased(MouseEvent e){
-					panel.setBackground(setColor(153, 153, 255));
-					System.out.println("Client button pressed");
-				}
-			});
+			public void mouseReleased(MouseEvent e){
+				panel.setBackground(setColor(153, 153, 255));
+				buttonFunc(button_name);
+			}
+		});
+	}
+	
+	// Executes a buttons function.
+	private void buttonFunc(String button){
+		
+		if(button.equalsIgnoreCase("server")){
+			System.out.println("pressed server button");
+			new Server(1234);
+		}
+		else if(button.equalsIgnoreCase("client")){
+			System.out.println("pressed client button");
+			
+			Client client = new Client();
+			if(!client.hasClient()){
+				client.start();
+			}
+			
+			client.send("test", ip, port);
 		}
 	}
 	
@@ -133,6 +139,7 @@ public class ClientBoot {
 		return color;
 	}
 	
+	//----====Main===----
 	public static void main(String[] args){
 		
 		ClientBoot cb = new ClientBoot();
