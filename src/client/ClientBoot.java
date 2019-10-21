@@ -3,6 +3,8 @@ package client;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,6 +23,7 @@ public class ClientBoot {
 		frame.add(createMainPanel(width, height));
 	}
 	
+	// creates main panel
 	private JPanel createMainPanel(int width, int height){
 		JPanel panel = new JPanel();
 		
@@ -49,7 +52,7 @@ public class ClientBoot {
 		return panel;
 	}
 	
-	// add bottom panel with two buttons. one to start the server and one to start the client.
+	// creates bottom panel with buttons
 	private JPanel createBottomPanel(int x, int y, int width, int height){
 		JPanel panel = new JPanel();
 		JPanel startServerB = new JPanel();
@@ -71,10 +74,44 @@ public class ClientBoot {
 		startClientB.add(createTextLabel(13, -2, "Start Client",
 				new Font("Segoe UI", 2, 15), 100, setColor(240, 240, 240)));
 		
+		addMouseListener(startServerB, "Server");
+		addMouseListener(startClientB, "Client");
+		
 		panel.add(startServerB);
 		panel.add(startClientB);
 		
 		return panel;
+	}
+	
+	private void addMouseListener(JPanel panel, String button_name){
+		
+		if(button_name.equalsIgnoreCase("server")){
+			
+			panel.addMouseListener(new MouseAdapter() {
+				
+				public void mousePressed(MouseEvent e){
+					panel.setBackground(setColor(153, 190, 255));
+				}
+				
+				public void mouseReleased(MouseEvent e){
+					panel.setBackground(setColor(153, 153, 255));
+					System.out.println("Server button pressed");
+				}
+			});
+		} else if(button_name.equalsIgnoreCase("client")){
+			
+			panel.addMouseListener(new MouseAdapter() {
+				
+				public void mousePressed(MouseEvent e){
+					panel.setBackground(setColor(153, 190, 255));
+				}
+				
+				public void mouseReleased(MouseEvent e){
+					panel.setBackground(setColor(153, 153, 255));
+					System.out.println("Client button pressed");
+				}
+			});
+		}
 	}
 	
 	// Returns a JLabel with the set location/font/width/color
