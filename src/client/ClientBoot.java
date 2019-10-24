@@ -57,29 +57,20 @@ public class ClientBoot {
 	// creates bottom panel with buttons
 	private JPanel createBottomPanel(int x, int y, int width, int height){
 		JPanel panel = new JPanel();
-		JPanel startServerB = new JPanel();
 		JPanel startClientB = new JPanel();
 		
 		panel.setLayout(null);
 		panel.setBounds(x, y, width, height);
 		panel.setBackground(setColor(153, 255, 153));
 		
-		startServerB.setLayout(null);
-		startServerB.setBounds(75, 50, 100, 50);
-		startServerB.setBackground(setColor(153, 153, 255));
-		startServerB.add(createTextLabel(13, -2, "Start Server",
-				new Font("Segoe UI", 2, 15), 100, setColor(240, 240, 240)));
-		
 		startClientB.setLayout(null);
-		startClientB.setBounds((75*4), 50, 100, 50);
+		startClientB.setBounds((75*2 + 45), 50, 100, 50);
 		startClientB.setBackground(setColor(153, 153, 255));
 		startClientB.add(createTextLabel(13, -2, "Start Client",
 				new Font("Segoe UI", 2, 15), 100, setColor(240, 240, 240)));
 		
-		addMouseListener(startServerB, "Server");
 		addMouseListener(startClientB, "Client");
 		
-		panel.add(startServerB);
 		panel.add(startClientB);
 		
 		return panel;
