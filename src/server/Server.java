@@ -8,6 +8,7 @@ public class Server {
 	private DatagramSocket socket;
 	
 	private boolean running = false;
+	private static String status;
 	
 	public Server(int port){
 		
@@ -43,6 +44,8 @@ public class Server {
 						String msg = new String(rData);
 						msg = msg.substring(0, msg.indexOf("/e/"));
 						
+						status = "Packet comming in from: " + packet.getAddress().getHostAddress() + " on port: " + packet.getPort();
+						
 						System.out.println("Packet comming in from: " + packet.getAddress().getHostAddress() + 
 								" on port: " + packet.getPort() + " Message: " + msg);
 						
@@ -53,5 +56,9 @@ public class Server {
 				}
 			}
 		}; thread.start();
+	}
+	
+	public static String getStatus(){
+		return status;
 	}
 }

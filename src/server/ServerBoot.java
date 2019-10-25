@@ -33,6 +33,7 @@ public class ServerBoot {
 		panel.setBackground(setColor(153, 153, 153));
 			
 		panel.add(createHeadPanel(0, 0, width, 100));
+		panel.add(statusPanel(0, 100, width, 220));
 		panel.add(createBottomPanel(0, 320, width, 150));
 		
 		return panel;
@@ -49,6 +50,36 @@ public class ServerBoot {
 		
 		panel.add(createTextLabel(20, 20, "Server Boot",
 				new Font("Segoe UI", 2, 30), 250, setColor(240, 240, 240)));
+		
+		return panel;
+	}
+	
+	private JPanel statusPanel(int x, int y, int width, int height){
+		JPanel panel = new JPanel();
+		JLabel statusLabel = createTextLabel(13, 70, "Status: ",
+				new Font("Segoe UI", 2, 15), width, setColor(240, 240, 240));
+		
+		panel.setLayout(null);
+		panel.setBounds(x, y, width, height);
+		panel.setBackground(setColor(255, 153, 153));
+		
+		panel.add(statusLabel);
+		
+		Thread thread = new Thread("Status bar"){
+			
+			public void run(){
+				
+				while(true){
+					statusLabel.setText("Status: " + Server.getStatus());
+					
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}; thread.start();
 		
 		return panel;
 	}
