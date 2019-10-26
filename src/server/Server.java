@@ -13,7 +13,6 @@ public class Server {
 	public Server(int port){
 		
 		try {
-			
 			socket = new DatagramSocket(port);
 			running = true;
 			

@@ -9,18 +9,26 @@ import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import server.Server;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class ClientBoot {
 	
 	private JFrame frame;
+	private Client client;
+	private JTextArea textArea;
+	private JTextField fieldMessage;
 	
 	private static String ip = "localhost";
 	private static int port = 1234, width = 500, height = 500;
 	
+	// Constructor.
 	public ClientBoot(){
 		frame = new JFrame();
+		client = new Client();
+		textArea = new JTextArea();
+		fieldMessage = new JTextField();
 		
 		frame.add(createMainPanel(width, height));
 	}
@@ -34,6 +42,7 @@ public class ClientBoot {
 		panel.setBackground(setColor(153, 153, 153));
 		
 		panel.add(createHeadPanel(0, 0, width, 100));
+		panel.add(createTextArea(0, 100, width, 220));
 		panel.add(createBottomPanel(0, 320, width, 150));
 		
 		return panel;
@@ -52,6 +61,46 @@ public class ClientBoot {
 				new Font("Segoe UI", 2, 30), 250, setColor(240, 240, 240)));
 		
 		return panel;
+	}
+	
+	// creates textArea
+	private JPanel createTextArea(int x, int y, int width, int height){
+		JPanel panel = new JPanel();
+		JPanel Submit = new JPanel();
+		JScrollPane scrollPane;
+		
+		panel.setLayout(null);
+		panel.setBounds(x, y, width, height);
+		panel.setBackground(setColor(255, 153, 153));
+		
+		textArea.setEditable(false);
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		
+		scrollPane = new JScrollPane(textArea);
+		scrollPane.setBounds(0, 0, width, height-50);
+		
+		fieldMessage.setBounds(0, 170, width-100, 30);
+		
+		Submit.setLayout(null);
+		Submit.setBounds(width-100, 170, 100, 50);
+		Submit.setBackground(setColor(153, 153, 255));
+		
+		Submit.add(createTextLabel(25, -2, "Submit",
+				new Font("Segoe UI", 2, 15), 100, setColor(240, 240, 240)));
+		
+		addMouseListener(Submit, "submit");
+		
+		panel.add(fieldMessage);
+		panel.add(Submit);
+		panel.add(scrollPane);
+		
+		return panel;
+	}
+	
+	// returns textArea.
+	public JTextArea getTextArea(){
+		return textArea;
 	}
 	
 	// creates bottom panel with buttons
@@ -95,19 +144,26 @@ public class ClientBoot {
 	// Executes a buttons function.
 	private void buttonFunc(String button){
 		
-		if(button.equalsIgnoreCase("server")){
-			System.out.println("pressed server button");
-			new Server(1234);
-		}
-		else if(button.equalsIgnoreCase("client")){
+		if(button.equalsIgnoreCase("client")){
 			System.out.println("pressed client button");
 			
-			Client client = new Client();
 			if(!client.hasClient()){
 				client.start();
+				textArea.append("Started Client!\n");
 			}
 			
-			client.send("test", ip, port);
+			client.send("New Client", ip, port);
+		}
+		else if(button.equalsIgnoreCase("submit")){
+			
+			if(!client.hasClient()){
+				textArea.append("ERROR: please click the start client button.\n");
+			}
+			else {
+				client.send(fieldMessage.getText(), ip, port);
+				textArea.append(fieldMessage.getText() + "\n");
+				fieldMessage.setText("");
+			}
 		}
 	}
 	
