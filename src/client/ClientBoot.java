@@ -148,11 +148,11 @@ public class ClientBoot {
 			System.out.println("pressed client button");
 			
 			if(!client.hasClient()){
-				client.start();
+				client.start(textArea);
 				textArea.append("Started Client!\n");
 			}
 			
-			client.send("New Client", ip, port);
+			client.send("New Client joined\n", ip, port);
 		}
 		else if(button.equalsIgnoreCase("submit")){
 			

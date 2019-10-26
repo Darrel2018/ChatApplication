@@ -54,6 +54,7 @@ public class ServerBoot {
 		return panel;
 	}
 	
+	// creates the statusPanel.
 	private JPanel statusPanel(int x, int y, int width, int height){
 		JPanel panel = new JPanel();
 		JLabel statusLabel = createTextLabel(13, 70, "Status: ",
@@ -144,6 +145,7 @@ public class ServerBoot {
 		return textLabel;
 	}
 	
+	// returns a color
 	private Color setColor(int r, int g, int b){
 		Color color = new Color(r, g, b);
 		return color;
