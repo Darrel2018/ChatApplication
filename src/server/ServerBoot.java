@@ -14,12 +14,14 @@ public class ServerBoot {
 	
 	private JFrame frame;
 	
+	// Constructor.
 	public ServerBoot(int port){
 		//new Server(1234);
 		frame = new JFrame();
 		createView();
 	}
 	
+	// creates the gui for the frame.
 	private void createView(){
 		frame.add(createMainPanel(500, 500));
 	}
@@ -151,6 +153,7 @@ public class ServerBoot {
 		return color;
 	}
 	
+	//----====Main====----\\
 	public static void main(String[] args){
 		ServerBoot server = new ServerBoot(1234);
 		server.frame.setSize(new Dimension(500, 500));

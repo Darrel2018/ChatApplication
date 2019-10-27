@@ -3,9 +3,6 @@ package server;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.util.ArrayList;
-
-import client.Client;
 
 public class Server {
 	
@@ -15,6 +12,7 @@ public class Server {
 	private static String status;
 	private int port1 = 0, port2 = 0;
 	
+	// Constructor.
 	public Server(int port){
 		
 		try {
@@ -30,6 +28,7 @@ public class Server {
 		}
 	}
 	
+	// dedicates two ports to variables for later use.
 	private void setPort(int port){
 		
 		if(port1 == 0){
@@ -42,6 +41,7 @@ public class Server {
 		}
 	}
 	
+	// receives information from the clients and then uses that information.
 	private void receive(){
 		
 		Thread thread = new Thread("Server: Waiting to recive packet"){
@@ -81,6 +81,7 @@ public class Server {
 		}; thread.start();
 	}
 	
+	// sends messages to the clients.
 	private void sendMessages(String msg, String ip, int port){
 		 
 		try {
@@ -97,6 +98,7 @@ public class Server {
 		}
 	}
 	
+	// returns the status of the server.
 	public static String getStatus(){
 		return status;
 	}

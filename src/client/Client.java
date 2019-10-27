@@ -12,6 +12,7 @@ public class Client {
 	private static DatagramSocket socket;
 	private JTextArea area;
 	
+	// starts the client.
 	public void start(JTextArea area){
 		
 		this.area = area;
@@ -24,6 +25,7 @@ public class Client {
 		}
 	}
 	
+	// checks if socket is null and returns a boolean value dependent on the socket.
 	public boolean hasClient(){
 		
 		if(socket != null){
@@ -33,6 +35,7 @@ public class Client {
 		return false;
 	}
 	
+	// receives information from the server and uses that information.
 	private void receiveMessage(){
 		
 		Thread thread = new Thread("Client: Waiting to recive packet"){
@@ -63,6 +66,7 @@ public class Client {
 		}; thread.start();
 	}
 	
+	// sends messages to the server.
 	public void send(String msg, String ip, int port){
 		
 		try {
